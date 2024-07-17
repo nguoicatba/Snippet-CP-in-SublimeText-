@@ -1,0 +1,53 @@
+<snippet>
+	<content><![CDATA[
+class Segment_Tree {
+private:
+    vector<ll>node;
+    int length;
+    
+    void combine (int id){
+        node[id]=node[id*2]+node[id*2+1];
+      
+
+    }
+    void _update (int id,int l,int r,int u,ll val){
+        if (u<l||u>r)
+         return ;
+        if (l==r){
+         node[id]+=val;
+       
+         return;
+        }
+        int mid=(l+r)>>1;
+        _update(id*2,l,mid,u,val);
+        _update(id*2+1,mid+1,r,u,val);
+        combine(id);
+    }
+    ll _get (int id,int l,int r,int u,int v){
+        if (v<l||r<u)
+         return 0;
+        if (u<=l&&r<=v)
+         return node[id];
+        int mid=(l+r)>>1;
+        ll tinh =_get(id*2,l,mid,u,v)+_get(id*2+1,mid+1,r,u,v);
+        return tinh;
+    }
+public:
+    Segment_Tree(int n=0):node(4*n+1){
+      length=n;
+    };
+    void update (int x,ll val){
+       _update(1,1,length,x,val);
+    }
+    ll get(int x,int y){
+        return _get(1,1,length,x,y);
+    }
+
+
+};
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>Segment_tree</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

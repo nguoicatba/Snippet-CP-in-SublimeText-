@@ -1,0 +1,40 @@
+<snippet>
+	<content><![CDATA[
+struct BIT_2D
+{                         
+  vector<vector<long long>>bit;
+  BIT_2D (int n) : bit(n+1,vector<long long>(n+1,0)) {}
+  BIT_2D (int n,int m) : bit (n+1,vector<long long>(m+1,0)) {}
+
+  void update (int x, int y, int val){
+
+    for (int i=x ; i<bit.size(); i += i &  (-i)){
+       for (int j=y ; j < bit[i].size(); j+=j &(-j))
+          bit[i][j]+=val;
+
+    }
+  }
+  long long get (int x1,int y1, int x2, int y2){
+   long long  ans = 0;
+  for (int i = x2; i>0; i -= (i & (-i))) {
+    for (int j = y2; j>0; j -= (j & (-j))) { ans += bit[i][j]; }
+  }
+  for (int i = x2; i>0; i -= (i & (-i))) {
+    for (int j = y1 - 1; j>0; j -= (j & (-j))) { ans -= bit[i][j]; }
+  }
+  for (int i = x1 - 1; i>0; i -= (i & (-i))) {
+    for (int j = y2; j > 0; j -= (j & (-j))) { ans -= bit[i][j]; }
+  }
+  for (int i = x1 - 1; i > 0; i -= (i & (-i))) {
+    for (int j = y1 - 1; j > 0; j -= (j & (-j))) { ans += bit[i][j]; }
+  }
+  return ans;
+}
+  
+};
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>BIT_2D</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

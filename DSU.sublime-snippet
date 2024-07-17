@@ -1,0 +1,29 @@
+<snippet>
+	<content><![CDATA[
+struct DSU
+{ vector<int>par;
+  DSU(int n) : par(n+1,-1){};
+  int find (int u){
+    if (par[u]<0)
+      return u;
+    return par[u]=find(par[u]);
+  }
+  bool megre( int u,int v){
+    int a=find (u);
+    int b=find (v);
+    if (a==b)
+      return false;
+    if (par[a]>par[b])
+      swap(a,b);
+   par[a]+=par[b];
+   par[b]=a;
+   return true;
+  }
+  
+};
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>DSU</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

@@ -1,0 +1,53 @@
+<snippet>
+	<content><![CDATA[
+typedef pair<int,int> pii;
+#define mp make_pair
+int n,m;
+char a[1000][1000];
+int pre[1000][1000];
+bool vs[1001][1001];
+int dx[]={-1,1,0,0};
+int dy[]={0,0,-1,1};
+bool inside(pii ck){
+  int i=ck.fi;
+  int j=ck.se;
+  return i>=0&&i<n&&j>=0&&j<m;
+
+}
+void bfs(pii begin){
+    memset(vs,false,sizeof(vs));
+  queue<pii>q;
+  q.push(begin);
+  vs[begin.fi][begin.se]=true;
+  while (!q.empty()){
+    pii u=q.front();
+    // debug(u);
+    q.pop();
+    rep(i,4){
+     pii v=mp(u.fi+dx[i],u.se+dy[i]);
+    
+     if (!inside(v))
+     continue;
+    
+     if (vs[v.fi][v.se])
+      continue;
+     if (a[v.fi][v.se]=='#')
+      continue;
+   
+     pre[v.fi][v.se]=i;
+     vs[v.fi][v.se]=true;
+     q.push(v);
+
+
+    }
+  }
+  
+
+
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>bfs(n*n)</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

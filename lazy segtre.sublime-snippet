@@ -1,0 +1,62 @@
+<snippet>
+	<content><![CDATA[
+ll a[maxn];
+ ll f[maxn*4];
+ ll lazy[maxn*4];
+  void build (int id,int l,int r){
+      if (l==r){
+        f[id]=a[l];
+        return;
+      }
+      int mid=(l+r)>>1;
+      build(id*2,l,mid);
+      build(id*2+1,mid+1,r);
+
+
+  }
+
+  void down(int id){
+    ll val=lazy[id];
+    f[id*2]+=val;
+    lazy[id*2]+=val;
+
+    f[id*2+1]+=val;
+    lazy[id*2+1]+=val;
+
+    lazy[id]=0;
+  }
+
+  void update(int id,int l,int r,int u,int v,int val){
+     if (v<l||r<u)
+      return;
+    if (u<=l&&r<=v){
+      f[id]+=val;
+      lazy[id]+=val;
+      return;
+    }
+    down(id);
+    int mid=(l+r)>>1;
+    update(id*2,l,mid,u,v,val);
+    update(id*2+1,mid+1,r,u,v,val);
+  
+  }
+  ll get (int id,int l,int r,int u){
+        if (u<l||u>r){
+         
+          return 0;
+        }
+       if (l==r)
+       return f[id]; 
+    down(id);
+    int mid=(l+r)>>1;
+    ll f1=get(id*2,l,mid,u);
+    ll f2=get(id*2+1,mid+1,r,u);
+
+    return f1+f2;
+  }
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>lazesegtree</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

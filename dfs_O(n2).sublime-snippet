@@ -1,0 +1,26 @@
+<snippet>
+	<content><![CDATA[
+bool vs[][];
+int dx[]={-1,0,0,1,-1,1,1,-1};
+int dy[]={0,-1,1,0,-1,1,-1,1};
+int n,m;
+void dfs (int i,int j){
+  vs[i][j]=true;
+  for (int k=0;k<8;++k){
+    int i1=i+dx[k];
+    int j1=j+dy[k];
+    if (i1<0||i1==n)
+      continue;
+    if (j1<0||j1==m)
+      continue;
+    if (vs[i1][j1])
+      continue;
+    dfs(i1,j1);
+  }   
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>dfs(n*n)</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>
