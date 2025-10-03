@@ -1,0 +1,65 @@
+<snippet>
+	<content><![CDATA[
+ll gcd(ll a,ll b){
+    if (b==0) return a;
+    return gcd(b,a%b);
+}
+
+
+ll pow1 (ll a,ll b){
+    if (b==0) return 1;
+    ll res=pow1(a,b/2);
+    res*=res;
+    res%=mod;
+    if (b&1) res*=a;
+    res%=mod;
+    return res; 
+}
+
+ll mod_div( ll a){
+    return pow1(a,mod-2);
+}
+struct phan_so{
+    ll tu,mau;
+    phan_so(ll x=1,ll y=1):tu(x),mau(y){
+    }
+
+    phan_so operator+ (phan_so other){
+        ll new_mau=(mau*other.mau)/gcd(mau,other.mau);
+        ll new_tu=tu*new_mau/mau + other.tu*new_mau/other.mau;
+
+        if (!new_tu) return phan_so(0,1);
+        else{
+            ll get_gcd=gcd(abs(new_tu),abs(new_mau));
+            return phan_so(new_tu/get_gcd,new_mau/get_gcd);
+        }
+    }
+    phan_so operator* (phan_so other){
+        ll new_tu=tu*other.tu;
+        ll new_mau=mau*other.mau;
+        if (!new_tu) return phan_so(0,1);
+        else{
+            ll get_gcd=gcd(abs(new_tu),abs(new_mau));
+              return phan_so(new_tu/get_gcd,new_mau/get_gcd);
+        }
+    }
+    phan_so operator/ (phan_so other){
+        ll new_tu=tu*other.mau;
+        ll new_mau=mau*other.tu;
+        if (!new_tu) return phan_so(0,1);
+        else{
+            ll get_gcd=gcd(abs(new_tu),abs(new_mau));
+            return phan_so(new_tu/get_gcd,new_mau/get_gcd);
+        }
+    }
+    void  print_phanso(){
+        cout<<tu<<" "<<mau<<endl;
+    }
+};
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>Phan_so</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

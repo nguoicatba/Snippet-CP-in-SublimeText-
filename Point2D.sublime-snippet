@@ -1,0 +1,62 @@
+<snippet>
+	<content><![CDATA[
+struct Point{
+    double x, y;
+    Point(double x = -1, double y = -1) : x(x), y(y) {}
+};
+
+double dist2(Point p) {
+    return p.x * p.x + p.y * p.y;
+}
+
+double dot(Point A, Point B) {
+    return A.x*B.x + A.y*B.y;
+}
+
+double cross(Point A,Point B) {
+    return A.x*B.y - A.y*B.x;
+}
+
+double dist(Point P) {
+    return sqrt(dist2(P));
+}
+
+double angle(Point P) {
+    return atan2(P.y, P.x);
+}
+
+Point operator+ (Point x, Point y) {
+    return Point(x.x + y.x, x.y + y.y);
+}
+
+Point operator- (Point x, Point y) {
+    return Point(x.x - y.x, x.y - y.y);
+}
+
+Point operator* (Point x, double d) {
+    return Point(x.x * d, x.y * d);
+}
+
+Point operator/ (Point x, double d) {
+    return Point(x.x / d, x.y / d);
+}
+
+Point unit(Point p) {
+    return p / dist(p);
+}
+
+Point perp(Point P) {
+    return Point(-P.y, P.x);
+}
+
+Point normal(Point P) {
+    return unit(perp(P));
+}
+
+const double PI = acos(-1);
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>Point2D</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

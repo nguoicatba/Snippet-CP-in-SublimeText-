@@ -1,0 +1,42 @@
+<snippet>
+	<content><![CDATA[
+struct Queue
+{
+    stack<pair<ll, ll>> in, out;
+ 
+    void push(ll x)
+    {
+        if(in.empty()) { in.push({x, x}); }
+        else { in.push({x, x | in.top().second});}
+    }
+ 
+    void pop()
+    {
+        if(out.empty())
+        {
+            while(!in.empty())
+            {
+                ll x = in.top().first;
+                in.pop();
+                if(out.empty())
+                    out.push({x, x});
+                else
+                    out.push({x, x | out.top().second});
+            }
+        }
+        out.pop();
+    }
+ 
+    ll OR()
+    {
+        ll ans1 = in.size() ? in.top().second : 0;
+        ll ans2 = out.size() ? out.top().second : 0;
+        return ans1 | ans2;
+    }
+};
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>SmartSlidingWindow</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

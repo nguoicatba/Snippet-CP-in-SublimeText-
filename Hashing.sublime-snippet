@@ -1,0 +1,35 @@
+<snippet>
+	<content><![CDATA[
+struct Hash
+{  
+  vector<long long> p, hash;
+  long long MOD;
+  int n;
+  string s;
+  long long base;
+
+  Hash(int n,string s) :hash(n+1,0), p(n+1,0){
+    MOD=1e9+21;
+    this->n=n;
+    this->s=s;
+    s=" "+s;
+    p[0]=1;
+    base=31;
+
+    for (int i=1;i<=n;++i)
+      p[i]= (p[i-1]*base) % MOD;
+    for (int i=1;i<=n;++i)
+      hash[i]=(hash[i-1]*base +(s[i]-'a'+1))%MOD;
+  }    
+  long long get_hash(int l, int r){
+    return (hash[r] -hash[l-1]*p[r-l+1] + 1ll * MOD * MOD)%MOD;
+  }
+
+};
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>Hashing</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>
